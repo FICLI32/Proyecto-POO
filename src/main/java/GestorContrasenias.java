@@ -17,7 +17,7 @@ public class GestorContrasenias {
 
     public static SecretKey generarClaveCifrado () throws Exception {
         KeyGenerator keyGen = KeyGenerator.getInstance("AES");
-        keyGen.init(128); // AES de 128 bits
+        keyGen.init(128);
         SecretKey secretKey = keyGen.generateKey();
         return secretKey;
     }
