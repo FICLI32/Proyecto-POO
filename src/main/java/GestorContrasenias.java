@@ -1,6 +1,8 @@
 
 
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import javax.crypto.Cipher;
@@ -16,7 +18,8 @@ public class GestorContrasenias {
         //String contraseniaCifrada = cifrarContrasenia(claveCifrado,contrasenia);
         //System.out.println(contraseniaCifrada);
         //System.out.println(descifrarContrasenia(claveCifrado,contraseniaCifrada));
-        menu(scanner, claveCifrado);
+        Map<String, String> contrasenias = new HashMap<>(); //mapa para almacenar contraseñas cifradas
+        menu(scanner, claveCifrado, contrasenias);
         scanner.close();
 
     }
@@ -43,24 +46,26 @@ public class GestorContrasenias {
         return new String(textoDescifrado);
     }
 
-    public static void menu(Scanner scanner, SecretKey claveCifrado) throws Exception {
+    public static void menu(Scanner scanner, SecretKey claveCifrado, Map<String, String> contrasenias) throws Exception {
         int opcion;
         do { 
             mostrarMenu();
             opcion = leerOpcion(scanner);
-            ejecutarOpcion(opcion, scanner, claveCifrado);
-        } while (opcion != 3);
+            ejecutarOpcion(opcion, scanner, claveCifrado, contrasenias);
+        } while (opcion != 5);
     }
 
     public static void mostrarMenu() {
-        System.out.println("╔════════════════════════════════╗");
-        System.out.println("║     Bienvenido al Menu de      ║");
-        System.out.println("║     Gestor de Contraseñas      ║");
-        System.out.println("╠════════════════════════════════╣");
-        System.out.println("║ 1. Cifrar una contraseña       ║");
-        System.out.println("║ 2. Descifrar contraseña        ║");
-        System.out.println("║ 3. Salir                       ║");
-        System.out.println("╚════════════════════════════════╝");
+        System.out.println("╔══════════════════════════════════╗");
+        System.out.println("║      Bienvenido al Menu de       ║");
+        System.out.println("║      Gestor de Contraseñas       ║");
+        System.out.println("╠══════════════════════════════════╣");
+        System.out.println("║ 1. Crear una contraseña          ║");
+        System.out.println("║ 2. Eliminar una contraseña       ║");
+        System.out.println("║ 3. Buscar una contraseña         ║");
+        System.out.println("║ 4. Listar todas las contraseñas  ║");
+        System.out.println("║ 5. Salir                         ║");
+        System.out.println("╚══════════════════════════════════╝");
         System.out.print("Seleccione una opción: ");
     }
     
@@ -69,7 +74,7 @@ public class GestorContrasenias {
         while (true) { 
             if (scanner.hasNextInt()) {
                 opcion = scanner.nextInt();
-                if (opcion >= 1 && opcion <= 3) {
+                if (opcion >= 1 && opcion <= 5) {
                     break;
                 } else {
                     System.out.println("Opcion invalida, ingrese nuevamente");
@@ -84,23 +89,49 @@ public class GestorContrasenias {
         return opcion;
     }
 
-    public static void ejecutarOpcion(int opcion, Scanner scanner, SecretKey claveCifrado) throws Exception {
+    public static void ejecutarOpcion(int opcion, Scanner scanner, SecretKey claveCifrado, Map<String, String> contrasenias) throws Exception {
         switch (opcion) {
             case 1:
-                System.out.println("Ingrese la contraseña a cifrar: ");
-                String contrasenia = scanner.nextLine();
-                String contraseniaCifrada = cifrarContrasenia(claveCifrado, contrasenia);
-                System.out.println("Contraseña cifrada: " + contraseniaCifrada);
+                System.out.println("Ingrese una etiqueta para la contraseña: ");
+                String crearEtiqueta = scanner.nextLine();
+                System.out.println("Ingrese la contraseña a crear: ");
+                String crearContrasenia = scanner.nextLine();
+                String contraseniaCifrada = cifrarContrasenia(claveCifrado,crearContrasenia);
+                contrasenias.put(crearEtiqueta, contraseniaCifrada);
+                System.out.println("Contraseña creada y cifrada");
                 break;
 
             case 2:
-                System.out.println("Ingrese la contraseña cifrada a descifrar: ");
-                String contraseniaCifradaInput = scanner.nextLine();
-                String contraseniaDescifrada = descifrarContrasenia(claveCifrado, contraseniaCifradaInput);
-                System.out.println("Contraseña descifrada: " + contraseniaDescifrada);
+                System.out.println("Ingrese la etiqueta de la constraseña a eliminar: ");
+                String eliminarEtiqueta = scanner.nextLine();
+                if (contrasenias.containsKey(eliminarEtiqueta)) {
+                    contrasenias.remove(eliminarEtiqueta);
+                    System.out.println("Contraseña eliminada");
+                } else {
+                    System.out.println("Etiqueta no encontrada");
+                }
                 break;
 
             case 3:
+                System.out.println("Ingrese la etiqueta de la contraseña a buscar: ");
+                String mostrarEtiqueta = scanner.nextLine();
+                if (contrasenias.containsKey(mostrarEtiqueta)) {
+                    String contraseniaCifradaMostrar = contrasenias.get(mostrarEtiqueta);
+                    String contraseniaDescifrada = descifrarContrasenia(claveCifrado, contraseniaCifradaMostrar);
+                    System.out.println("Contraseña descifrada: " + contraseniaDescifrada);
+                } else {
+                    System.out.println("Etiqueta no encontrada");
+                }
+                break;
+
+            case 4:
+                System.out.println("Lista de contraseñas: ");
+                for (String etiqueta : contrasenias.keySet()) {
+                    System.out.println("Etiqueta: " + etiqueta);
+                }  
+                break;
+
+            case 5:
                 System.out.println("Saliendo...");
                 break;
 
