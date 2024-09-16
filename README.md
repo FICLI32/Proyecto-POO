@@ -6,3 +6,4 @@ Integrantes:
 
 Codigo:
 * Fidel Barriga: Cifrado y descifrado de contraseñas
+* Fabiola Cheuquelaf: Menu de usuario
