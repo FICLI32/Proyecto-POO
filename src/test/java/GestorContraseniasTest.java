@@ -1,3 +1,4 @@
+
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -85,5 +86,23 @@ public class GestorContraseniasTest {
         //Verifica si existen
         assertTrue(contrasenias.containsKey("Etiqueta1"));
         assertTrue(contrasenias.containsKey("Etiqueta2"));
+    }
+}
+
+    private SecretKey claveCifrada;
+    private String contraseniaOriginal;
+    private String contraseniaCifrada;
+
+    @BeforeEach
+    void cargarCifrado() throws Exception {
+        contraseniaOriginal = "claveultrasecreta123";
+        claveCifrada = GestorContrasenias.generarClaveCifrado();
+        contraseniaCifrada = GestorContrasenias.cifrarContrasenia(claveCifrada, contraseniaOriginal);
+    }
+
+    @Test
+    void descifrarContrasenia() throws Exception {
+        String contraseniaDescifrada = GestorContrasenias.descifrarContrasenia(claveCifrada, contraseniaCifrada);
+        assertEquals(contraseniaOriginal, contraseniaDescifrada);
     }
 }

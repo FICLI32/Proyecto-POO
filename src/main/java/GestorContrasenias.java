@@ -11,6 +11,10 @@ import javax.crypto.SecretKey;
 
 public class GestorContrasenias {
 
+    public static void main(String[] args) throws Exception {
+        SecretKey claveCifrado = generarClaveCifrado();
+        Map<String, String> contrasenias = new HashMap<>();
+
     public static void main(String[] args) throws Exception{
         Scanner scanner = new Scanner(System.in);
         SecretKey claveCifrado = generarClaveCifrado();
@@ -26,7 +30,7 @@ public class GestorContrasenias {
 
     public static SecretKey generarClaveCifrado () throws Exception {
         KeyGenerator keyGen = KeyGenerator.getInstance("AES");
-        keyGen.init(128); // AES de 128 bits
+        keyGen.init(128);
         SecretKey secretKey = keyGen.generateKey();
         return secretKey;
     }
@@ -45,6 +49,7 @@ public class GestorContrasenias {
         byte[] textoDescifrado = cipher.doFinal(Base64.getDecoder().decode(contraseniaCifrada));
         return new String(textoDescifrado);
     }
+
 
     public static void menu(Scanner scanner, SecretKey claveCifrado, Map<String, String> contrasenias) throws Exception {
         int opcion;
@@ -142,3 +147,35 @@ public class GestorContrasenias {
     }
 }
 
+    public static void añadirContraseña(String nombreEtiqueta, String crearContrasenia, SecretKey claveCifrado, String > contrasenias, Map<String) throws Exception {
+        String contraseniaCifrada = cifrarContrasenia(claveCifrado,crearContrasenia);
+        contrasenias.put(crearEtiqueta, contraseniaCifrada);
+        System.out.println("Contraseña creada y cifrada. ");
+    }
+
+
+    public static void eliminarContraseña(String etiquetaContrasenia, String > contrasenias, Map<String) throws Exception{
+        if (contrasenis.containsKey(etiquetaContrasenia)) {
+            contrasenias.remove(etiquetaContrasenia);
+            System.out.println("Contraseña eliminada. ")
+        } else {
+            System.out.println("Etiqueta no encontrada. ");
+        }
+    }
+
+    public static void mostrarContraseña(String etiquetaContrasenia, String > contrasenias, Map<String) throws Exception{
+        if (contrasenias.containsKey(etiquetaContrasenia)) {
+            String contraseniaCifradaMostrar = contrasenias.get(etiquetaContrasenia);
+            String contraseniaDescifrada = descifrarContrasenia(claveCifrado, contraseniaCifradaMostrar);
+            System.out.println("Contraseña descifrada: " + contraseniaDescifrada);
+        } else {
+            System.out.println("Etiqueta no encontrada. ");
+        }
+    }
+    public static void listarContraseñas(String > contrasenias, Map<String) throws Exception{
+        System.out.println("Lista de contraseñas: ");
+        for (String etiqueta : contrasenias.keySet()) {
+            System.out.println("Etiqueta: " + etiqueta);
+        }
+    }
+}
