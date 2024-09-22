@@ -31,10 +31,18 @@ public class GestorContrasenias {
     public static void añadirContraseña(String nombreEtiqueta, String crearContrasenia, SecretKey claveCifrado, String > contrasenias) throws Exception {
         String contraseniaCifrada = cifrarContrasenia(claveCifrado,crearContrasenia);
         contrasenias.put(crearEtiqueta, contraseniaCifrada);
-        System.out.println("Contraseña creada y cifrada");
+        System.out.println("Contraseña creada y cifrada. ");
     }
 
-    public static void eliminarContraseña() {}
-    public static void mostrarContraseña() {}
+    public static void eliminarContraseña(String etiquetaContrasenia, String > contrasenias) {
+        if (contrasenis.containsKey(etiquetaContrasenia)) {
+            contrasenias.remove(etiquetaContrasenia);
+            System.out.println("Contraseña eliminada. ")
+        } else {
+            System.out.println("Etiqueta no encontrada");
+        }
+    }
+
+    public static void mostrarContraseña(String etiquetaContrasenia, String contrasenias) {}
     public static void listarContraseñas() {}
 }
