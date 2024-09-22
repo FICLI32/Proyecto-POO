@@ -9,6 +9,14 @@ public class GestorContrasenias {
     public static void main(String[] args) throws Exception {
         SecretKey claveCifrado = generarClaveCifrado();
         Map<String, String> contrasenias = new HashMap<>();
+
+    public static void main(String[] args) throws Exception{
+        SecretKey claveCifrado = generarClaveCifrado();
+        String contrasenia = "claveultrasecreta123";
+        String contraseniaCifrada = cifrarContrasenia(claveCifrado,contrasenia);
+        System.out.println(contraseniaCifrada);
+        System.out.println(descifrarContrasenia(claveCifrado,contraseniaCifrada));
+
     }
 
     public static SecretKey generarClaveCifrado () throws Exception {
