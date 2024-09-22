@@ -10,15 +10,9 @@ import java.security.SecureRandom;
 public class GestorContrasenias {
 
     public static void main(String[] args) throws Exception{
-        String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+[]{}|;:',.<>?/";
-        int longitud = 10;
         Scanner scanner = new Scanner(System.in);
         SecretKey claveCifrado = generarClaveCifrado();
-        //String contrasenia = "claveultrasecreta123";
-        //String contraseniaCifrada = cifrarContrasenia(claveCifrado,contrasenia);
-        //System.out.println(contraseniaCifrada);
-        //System.out.println(descifrarContrasenia(claveCifrado,contraseniaCifrada));
-        Map<String, String> contrasenias = new HashMap<>(); //mapa para almacenar contraseñas cifradas
+        Map<String, String> contrasenias = new HashMap<>();
         menu(scanner, claveCifrado, contrasenias);
         scanner.close();
 
@@ -56,16 +50,16 @@ public class GestorContrasenias {
     }
 
     public static void mostrarMenu() {
-        System.out.println("╔══════════════════════════════════╗");
-        System.out.println("║      Bienvenido al Menu de       ║");
-        System.out.println("║      Gestor de Contraseñas       ║");
-        System.out.println("╠══════════════════════════════════╣");
-        System.out.println("║ 1. Crear una contraseña          ║");
-        System.out.println("║ 2. Eliminar una contraseña       ║");
-        System.out.println("║ 3. Buscar una contraseña         ║");
-        System.out.println("║ 4. Listar todas las contraseñas  ║");
-        System.out.println("║ 5. Salir                         ║");
-        System.out.println("╚══════════════════════════════════╝");
+        System.out.println("╔═════════════════════════════════════╗");
+        System.out.println("║         Bienvenido al Menu de       ║");
+        System.out.println("║         Gestor de Contraseñas       ║");
+        System.out.println("╠═════════════════════════════════════╣");
+        System.out.println("║ 1. Crear una o modificar contraseña ║");
+        System.out.println("║ 2. Eliminar una contraseña          ║");
+        System.out.println("║ 3. Mostrar una contraseña           ║");
+        System.out.println("║ 4. Listar todas las contraseñas     ║");
+        System.out.println("║ 5. Salir                            ║");
+        System.out.println("╚═════════════════════════════════════╝");
         System.out.print("Seleccione una opción: ");
     }
 
@@ -95,9 +89,10 @@ public class GestorContrasenias {
             case 1:
                 System.out.println("Ingrese una etiqueta para la contraseña: ");
                 String crearEtiqueta = scanner.nextLine();
-                System.out.println("Ingrese la contraseña a crear: ");
-                String crearContrasenia = scanner.nextLine();
-                aniadirContrasenia(crearEtiqueta, crearContrasenia, claveCifrado,contrasenias);
+                System.out.println("¿Desea generar una contraseña segura automaticamente? (S/N)");
+                String generarAutomaticamnete = scanner.nextLine();
+                String crearContrasenia = eleccionGenerarContrasenias(generarAutomaticamnete,scanner);
+                aniadirContrasenia(crearEtiqueta, crearContrasenia, claveCifrado, contrasenias);
                 break;
 
             case 2:
@@ -113,7 +108,6 @@ public class GestorContrasenias {
                 break;
 
             case 4:
-                System.out.println("Lista de contraseñas: ");
                 listarContrasenias(contrasenias);
                 break;
 
@@ -127,7 +121,8 @@ public class GestorContrasenias {
         }
     }
 
-    public static String generarContrasenia(int longitud, String caracteres) {
+    public static String generarContrasenia (int longitud) {
+        String caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+[]{}|;:',.<>?/";
         SecureRandom random = new SecureRandom();
         StringBuilder contrasenia = new StringBuilder(longitud);
 
@@ -145,7 +140,7 @@ public class GestorContrasenias {
         System.out.println("Contraseña creada y cifrada. ");
     }
 
-    public static void eliminarContrasenia(String etiquetaContrasenia, Map<String, String> contrasenias) throws Exception {
+    public static void eliminarContrasenia(String etiquetaContrasenia, Map<String, String> contrasenias) {
         if (contrasenias.containsKey(etiquetaContrasenia)) {
             contrasenias.remove(etiquetaContrasenia);
             System.out.println("Contraseña eliminada. ");
@@ -164,10 +159,41 @@ public class GestorContrasenias {
         }
     }
 
-    public static void listarContrasenias(Map<String, String> contrasenias) throws Exception {
-        System.out.println("Lista de contraseñas: ");
-        for (String etiqueta : contrasenias.keySet()) {
-            System.out.println("Etiqueta: " + etiqueta);
+    public static void listarContrasenias(Map<String, String> contrasenias) {
+        if (contrasenias.isEmpty()) {
+            System.out.println("No hay contraseñas.");
+        }else {
+            System.out.println("Lista de contraseñas:");
+            for (Map.Entry<String,String> entry : contrasenias.entrySet()){
+                String etiqueta = entry.getKey();
+                String contrasenia = entry.getValue();
+                System.out.println("Etiqueta: "+etiqueta+"|"+"Contrasenia: " + contrasenia);
+            }
+        }
+    }
+
+    public static String eleccionGenerarContrasenias (String autoGenerar, Scanner scanner) {
+        String crearContrasenia;
+
+        if (autoGenerar.equalsIgnoreCase("S")) {
+            int longitud;
+            do{
+                System.out.println("Ingrese la longitud de la contrasenia (minimo 6 caracteres)");
+                longitud = scanner.nextInt();
+                scanner.nextLine();
+                if (longitud < 6) {
+                    System.out.println("ingrese mas de 6 caracteres de longitud");
+                }
+            }while (longitud < 6);
+
+            crearContrasenia = generarContrasenia(longitud);
+            System.out.println("Contraseña generada: " + crearContrasenia);
+            return crearContrasenia;
+
+        } else {
+            System.out.println("Ingrese la contraseña a crear: ");
+            crearContrasenia = scanner.nextLine();
+            return crearContrasenia;
         }
     }
 
