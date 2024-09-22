@@ -13,8 +13,6 @@
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
 
-<<<<<<< HEAD
-=======
     <dependencies>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -24,5 +22,4 @@
 </dependency> 
     </dependencies>
 
->>>>>>> Marco
 </project>
