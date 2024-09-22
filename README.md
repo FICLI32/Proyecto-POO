@@ -5,5 +5,8 @@ Integrantes:
 4. Francisco Gatica
 
 Codigo:
-* Fidel Barriga: Cifrado y descifrado de contraseñas.
+* Fidel Barriga: Cifrado y descifrado de contraseñas
+* Fabiola Cheuquelaf: Menu de usuario
+* Marco Contreras: Gestor de contraseñas aleatorias
 * Francisco Gatica: Metodos añadirContraseña, eliminarContraseña, mostrarContraseña, listarContraseñas.
+
