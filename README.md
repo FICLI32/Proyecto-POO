@@ -6,4 +6,4 @@ Integrantes:
 
 Codigo:
 * Fidel Barriga: Cifrado y descifrado de contraseñas.
-* Francisco Gatica: Gestión de contraseñas.
+* Francisco Gatica: .
