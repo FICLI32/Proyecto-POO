@@ -6,6 +6,10 @@ import java.util.Base64;
 
 public class GestorContrasenias {
 
+    public static void main(String[] args) throws Exception {
+        SecretKey claveCifrado = generarClaveCifrado();
+        Map<String, String> contrasenias = new HashMap<>();
+
     public static void main(String[] args) throws Exception{
         SecretKey claveCifrado = generarClaveCifrado();
         String contrasenia = "claveultrasecreta123";
@@ -37,5 +41,34 @@ public class GestorContrasenias {
         return new String(textoDescifrado);
     }
 
-}
+    public static void añadirContraseña(String nombreEtiqueta, String crearContrasenia, SecretKey claveCifrado, String > contrasenias, Map<String) throws Exception {
+        String contraseniaCifrada = cifrarContrasenia(claveCifrado,crearContrasenia);
+        contrasenias.put(crearEtiqueta, contraseniaCifrada);
+        System.out.println("Contraseña creada y cifrada. ");
+    }
 
+    public static void eliminarContraseña(String etiquetaContrasenia, String > contrasenias, Map<String) throws Exception{
+        if (contrasenis.containsKey(etiquetaContrasenia)) {
+            contrasenias.remove(etiquetaContrasenia);
+            System.out.println("Contraseña eliminada. ")
+        } else {
+            System.out.println("Etiqueta no encontrada. ");
+        }
+    }
+
+    public static void mostrarContraseña(String etiquetaContrasenia, String > contrasenias, Map<String) throws Exception{
+        if (contrasenias.containsKey(etiquetaContrasenia)) {
+            String contraseniaCifradaMostrar = contrasenias.get(etiquetaContrasenia);
+            String contraseniaDescifrada = descifrarContrasenia(claveCifrado, contraseniaCifradaMostrar);
+            System.out.println("Contraseña descifrada: " + contraseniaDescifrada);
+        } else {
+            System.out.println("Etiqueta no encontrada. ");
+        }
+    }
+    public static void listarContraseñas(String > contrasenias, Map<String) throws Exception{
+        System.out.println("Lista de contraseñas: ");
+        for (String etiqueta : contrasenias.keySet()) {
+            System.out.println("Etiqueta: " + etiqueta);
+        }
+    }
+}
