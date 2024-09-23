@@ -15,32 +15,44 @@ public class GestorContrasenias {
         Map<String, String> contrasenias = new HashMap<>();
         menu(scanner, claveCifrado, contrasenias);
         scanner.close();
-
     }
 
-    public static SecretKey generarClaveCifrado() throws Exception {
-        KeyGenerator keyGen = KeyGenerator.getInstance("AES");
-        keyGen.init(128);
-        SecretKey secretKey = keyGen.generateKey();
-        return secretKey;
+    public static SecretKey generarClaveCifrado() {
+        try {
+            KeyGenerator keyGen = KeyGenerator.getInstance("AES");
+            keyGen.init(128);
+            return keyGen.generateKey();
+        } catch (Exception e) {
+            System.err.println("Error al generar clave de cifrado: " + e.getMessage());
+            return null;
+        }
     }
 
-    public static String cifrarContrasenia(SecretKey claveCifrado, String contrasenia) throws Exception {
-        Cipher cipher = Cipher.getInstance("AES");
-        cipher.init(Cipher.ENCRYPT_MODE, claveCifrado);
-        byte[] textoCifrado = cipher.doFinal(contrasenia.getBytes());
-        String textoCifradoBase64 = Base64.getEncoder().encodeToString(textoCifrado);
-        return textoCifradoBase64;
+    public static String cifrarContrasenia(SecretKey claveCifrado, String contrasenia) {
+        try {
+            Cipher cipher = Cipher.getInstance("AES");
+            cipher.init(Cipher.ENCRYPT_MODE, claveCifrado);
+            byte[] textoCifrado = cipher.doFinal(contrasenia.getBytes());
+            return Base64.getEncoder().encodeToString(textoCifrado);
+        } catch (Exception e) {
+            System.err.println("Error al cifrar contraseña: " + e.getMessage());
+            return null;
+        }
     }
 
-    public static String descifrarContrasenia(SecretKey claveCifrado, String contraseniaCifrada) throws Exception {
-        Cipher cipher = Cipher.getInstance("AES");
-        cipher.init(Cipher.DECRYPT_MODE, claveCifrado);
-        byte[] textoDescifrado = cipher.doFinal(Base64.getDecoder().decode(contraseniaCifrada));
-        return new String(textoDescifrado);
+    public static String descifrarContrasenia(SecretKey claveCifrado, String contraseniaCifrada) {
+        try {
+            Cipher cipher = Cipher.getInstance("AES");
+            cipher.init(Cipher.DECRYPT_MODE, claveCifrado);
+            byte[] textoDescifrado = cipher.doFinal(Base64.getDecoder().decode(contraseniaCifrada));
+            return new String(textoDescifrado);
+        } catch (Exception e) {
+            System.err.println("Error al descifrar contraseña: " + e.getMessage());
+            return null;
+        }
     }
 
-    public static void menu(Scanner scanner, SecretKey claveCifrado, Map<String, String> contrasenias) throws Exception {
+    public static void menu(Scanner scanner, SecretKey claveCifrado, Map<String, String> contrasenias) {
         int opcion;
         do {
             mostrarMenu();
@@ -83,7 +95,7 @@ public class GestorContrasenias {
         return opcion;
     }
 
-    public static void ejecutarOpcion(int opcion, Scanner scanner, SecretKey claveCifrado, Map<String, String> contrasenias) throws Exception {
+    public static void ejecutarOpcion(int opcion, Scanner scanner, SecretKey claveCifrado, Map<String, String> contrasenias) {
 
         switch (opcion) {
             case 1:
@@ -134,7 +146,7 @@ public class GestorContrasenias {
         return contrasenia.toString();
     }
 
-    public static void aniadirContrasenia(String nombreEtiqueta, String crearContrasenia, SecretKey claveCifrado, Map<String, String> contrasenias) throws Exception {
+    public static void aniadirContrasenia(String nombreEtiqueta, String crearContrasenia, SecretKey claveCifrado, Map<String, String> contrasenias) {
         String contraseniaCifrada = cifrarContrasenia(claveCifrado, crearContrasenia);
         contrasenias.put(nombreEtiqueta, contraseniaCifrada);
         System.out.println("Contraseña creada y cifrada. ");
@@ -149,7 +161,7 @@ public class GestorContrasenias {
         }
     }
 
-    public static void mostrarContrasenia(String etiquetaContrasenia, SecretKey claveCifrado, Map<String, String> contrasenias) throws Exception {
+    public static void mostrarContrasenia(String etiquetaContrasenia, SecretKey claveCifrado, Map<String, String> contrasenias) {
         if (contrasenias.containsKey(etiquetaContrasenia)) {
             String contraseniaCifradaMostrar = contrasenias.get(etiquetaContrasenia);
             String contraseniaDescifrada = descifrarContrasenia(claveCifrado, contraseniaCifradaMostrar);
