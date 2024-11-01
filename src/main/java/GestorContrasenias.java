@@ -1,41 +1,36 @@
-import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
-import java.util.Base64;
+import java.util.List;
 
 public class GestorContrasenias {
+	private int intentosFallidos;
+	private Usuario usuarioIniciado;
+	private List<Usuario> usuarios ;
+	private GestionArchivos gestorArchivos;
 
-    public static void main(String[] args) throws Exception{
-        SecretKey claveCifrado = generarClaveCifrado();
-        String contrasenia = "claveultrasecreta123";
-        String contraseniaCifrada = cifrarContrasenia(claveCifrado,contrasenia);
-        System.out.println(contraseniaCifrada);
-        System.out.println(descifrarContrasenia(claveCifrado,contraseniaCifrada));
+	public void agregarUsuario(Usuario usuario) {
+		throw new UnsupportedOperationException();
+	}
 
-    }
+	public boolean loguearse(Object string_idUsuario, Object string_contraseniaMaestra) {
+		throw new UnsupportedOperationException();
+	}
 
-    public static SecretKey generarClaveCifrado () throws Exception {
-        KeyGenerator keyGen = KeyGenerator.getInstance("AES");
-        keyGen.init(128);
-        SecretKey secretKey = keyGen.generateKey();
-        return secretKey;
-    }
+	public void deslogearse() {
+		throw new UnsupportedOperationException();
+	}
 
-    public static String cifrarContrasenia (SecretKey claveCifrado, String contrasenia) throws Exception{
-        Cipher cipher = Cipher.getInstance("AES");
-        cipher.init(Cipher.ENCRYPT_MODE, claveCifrado);
-        byte[] textoCifrado = cipher.doFinal(contrasenia.getBytes());
-        String textoCifradoBase64 = Base64.getEncoder().encodeToString(textoCifrado);
-        return textoCifradoBase64;
-    }
+	public Usuario buscarUsuarioId(Object string_usuarioId) {
+		throw new UnsupportedOperationException();
+	}
 
-    public static String descifrarContrasenia (SecretKey claveCifrado, String contraseniaCifrada) throws Exception{
-        Cipher cipher = Cipher.getInstance("AES");
-        cipher.init(Cipher.DECRYPT_MODE, claveCifrado);
-        byte[] textoDescifrado = cipher.doFinal(Base64.getDecoder().decode(contraseniaCifrada));
-        return new String(textoDescifrado);
-    }
+	public Usuario obtenerUsuarioIniciado() {
+		throw new UnsupportedOperationException();
+	}
 
+	public void guardarUsuarios() {
+		throw new UnsupportedOperationException();
+	}
+
+	public void cargarUsuarios() {
+		throw new UnsupportedOperationException();
+	}
 }
-
