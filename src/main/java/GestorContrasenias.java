@@ -8,9 +8,18 @@ public class GestorContrasenias {
 	private List<Usuario> usuarios ;
 	private GestionArchivos gestorArchivos;
 
-	public GestorContrasenias() {
+	public GestorContrasenias(GestionArchivos gestorArchivos) {
 		this.usuarios = new ArrayList<>();
 		this.intentosFallidos = 0;
+		this.gestorArchivos = gestorArchivos;
+	}
+
+	public Usuario getUsuarioIniciado() {
+		return usuarioIniciado;
+	}
+
+	public List<Usuario> getUsuarios() {
+		return usuarios;
 	}
 
 	public void agregarUsuario(Usuario usuario){
@@ -37,7 +46,7 @@ public class GestorContrasenias {
 		this.usuarioIniciado = null;
 	}
 
-	private Usuario buscarUsuarioId(String usuarioId){
+	public Usuario buscarUsuarioId (String usuarioId){
 		for (Usuario usuario: usuarios){
 			if (usuario.getIdUsuario().equals(usuarioId)){
 				return usuario;
@@ -46,11 +55,7 @@ public class GestorContrasenias {
 		return null;
 	}
 
-	public Usuario obtenerUsuarioIniciado() {
-		return usuarioIniciado;
-	}
-
-	public void guardarUsuarios(){
+	public void guardarUsuarios() {
 		gestorArchivos.writeData(usuarios);
 	}
 

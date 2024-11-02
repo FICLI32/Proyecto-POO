@@ -21,12 +21,16 @@ public class Usuario {
 		this.contrasenias = new HashMap<>();
 	}
 
-	public String getIdUsuario() {
-		return idUsuario;
+	public Map<String, Contrasenia> getContrasenias() {
+		return contrasenias;
 	}
 
-	public void setIdUsuario(String idUsuario) {
-		this.idUsuario = idUsuario;
+	public String getNombre() {
+		return nombre;
+	}
+
+	public String getIdUsuario() {
+		return idUsuario;
 	}
 
 	private byte[] generarSalt() {
@@ -65,4 +69,5 @@ public class Usuario {
 	public Map<String, Contrasenia> contraseniaMap() {
 		return contrasenias;
 	}
+
 }

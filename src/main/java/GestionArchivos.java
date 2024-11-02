@@ -12,10 +12,15 @@ public class GestionArchivos {
 	private String rutaArchivo;
 	private SecretKeySpec claveCifrado;
 
-	public void writeData(List<Usuario> data) {
+	public GestionArchivos(String rutaArchivo, SecretKeySpec claveCifrado) {
+		this.rutaArchivo = rutaArchivo;
+		this.claveCifrado = claveCifrado;
+	}
+
+	public void writeData(List<Usuario> usuarios) {
 		try (FileWriter writer = new FileWriter(rutaArchivo)) {
 			Gson gson = new Gson();
-			String jsonData = gson.toJson(data);
+			String jsonData = gson.toJson(usuarios);
 			//cifrado
 			Cipher cipher = Cipher.getInstance("AES");
 			cipher.init(Cipher.ENCRYPT_MODE, claveCifrado);
@@ -28,6 +33,7 @@ public class GestionArchivos {
 
 	public List<Usuario> readData() {
 		try (BufferedReader reader = new BufferedReader(new FileReader(rutaArchivo))) {
+
 			String datosCodificados = reader.readLine();
 			byte[] datosDecodificados = Base64.getDecoder().decode(datosCodificados);
 			//Descifrado
@@ -37,6 +43,7 @@ public class GestionArchivos {
 			Gson gson = new Gson();
 			return gson.fromJson(new String(datosDescifrados), new TypeToken<List<Usuario>>() {
 			}.getType());
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
