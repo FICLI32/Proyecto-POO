@@ -1,3 +1,6 @@
+package Data;
+
+import Modelo.Usuario;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import javax.crypto.Cipher;
