@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="683c57a6-af16-4ddd-95fb-0b14bdd6ae28" name="Changes" comment="." />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="JUnit5 Test Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="FIDEL" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;FICLI32&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/FICLI32/Proyecto-POO.git&quot;,
+    &quot;accountId&quot;: &quot;65b0d90e-dda7-4b09-a788-dee70655acbb&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2m1SqAqNBOBQPGA9C2bA3ilthdJ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.GestorContrasenias.executor": "Run",
+    "JUnit.GestorContraseniasTest.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/fidelb/IdeaProjects/Proyecto-GestorCotrasenias_POO",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="GestorContrasenias" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="GestorContrasenias" />
+      <module name="Proyecto-POO-gestorcontrasenias" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GestorContraseniasTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Proyecto-POO-gestorcontrasenias" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="GestorContraseniasTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.GestorContraseniasTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="683c57a6-af16-4ddd-95fb-0b14bdd6ae28" name="Changes" comment="" />
+      <created>1726242780727</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1726242780727</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Subo readme">
+      <option name="closed" value="true" />
+      <created>1726242848490</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1726242848490</updated>
+    </task>
+    <task id="LOCAL-00002" summary="codigo base">
+      <option name="closed" value="true" />
+      <created>1726243169129</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1726243169129</updated>
+    </task>
+    <task id="LOCAL-00003" summary="subo metodos cifrar y descifrar contraseñas">
+      <option name="closed" value="true" />
+      <created>1726341295037</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1726341295037</updated>
+    </task>
+    <task id="LOCAL-00004" summary="subo test de metodos de cifrado de contraseña">
+      <option name="closed" value="true" />
+      <created>1726350602784</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1726350602784</updated>
+    </task>
+    <task id="LOCAL-00005" summary="subo modificacion de readme">
+      <option name="closed" value="true" />
+      <created>1726441660876</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1726441660876</updated>
+    </task>
+    <task id="LOCAL-00006" summary=".">
+      <option name="closed" value="true" />
+      <created>1726948056045</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1726948056045</updated>
+    </task>
+    <task id="LOCAL-00007" summary=".">
+      <option name="closed" value="true" />
+      <created>1726948100252</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1726948100252</updated>
+    </task>
+    <task id="LOCAL-00008" summary="subo gestor de contraseñas con todas sus funcionalidades">
+      <option name="closed" value="true" />
+      <created>1727042875340</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1727042875341</updated>
+    </task>
+    <task id="LOCAL-00009" summary="modificaciones en archivos">
+      <option name="closed" value="true" />
+      <created>1727042996586</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1727042996586</updated>
+    </task>
+    <task id="LOCAL-00010" summary="subo modificacion en gestion de excepciones y test unitarios">
+      <option name="closed" value="true" />
+      <created>1727102554385</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1727102554385</updated>
+    </task>
+    <task id="LOCAL-00011" summary="subo diagrama.vpp y imagen de diagrama">
+      <option name="closed" value="true" />
+      <created>1730474673592</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1730474673592</updated>
+    </task>
+    <task id="LOCAL-00012" summary="subo clases bases, sin codigo funcional">
+      <option name="closed" value="true" />
+      <created>1730474731414</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1730474731414</updated>
+    </task>
+    <task id="LOCAL-00013" summary="subo modificaciones clases y pom">
+      <option name="closed" value="true" />
+      <created>1730474780841</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1730474780841</updated>
+    </task>
+    <task id="LOCAL-00014" summary="subo avance codigo clases">
+      <option name="closed" value="true" />
+      <created>1730480910449</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1730480910449</updated>
+    </task>
+    <task id="LOCAL-00015" summary=".">
+      <option name="closed" value="true" />
+      <created>1730481150628</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1730481150628</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Subo readme" />
+    <MESSAGE value="codigo base" />
+    <MESSAGE value="subo metodos cifrar y descifrar contraseñas" />
+    <MESSAGE value="subo test de metodos de cifrado de contraseña" />
+    <MESSAGE value="subo modificacion de readme" />
+    <MESSAGE value="modificacion merge funcional" />
+    <MESSAGE value="subo gestor de contraseñas con todas sus funcionalidades" />
+    <MESSAGE value="modificaciones en archivos" />
+    <MESSAGE value="subo modificacion en gestion de excepciones y test unitarios" />
+    <MESSAGE value="subo diagrama.vpp y imagen de diagrama" />
+    <MESSAGE value="subo clases bases, sin codigo funcional" />
+    <MESSAGE value="subo modificaciones clases y pom" />
+    <MESSAGE value="subo avance codigo clases" />
+    <MESSAGE value="." />
+    <option name="LAST_COMMIT_MESSAGE" value="." />
+  </component>
+</project>
