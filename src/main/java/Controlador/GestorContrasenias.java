@@ -1,6 +1,7 @@
-package Modelo;
+package Controlador;
 
 import Data.GestionArchivos;
+import Modelo.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,21 +60,21 @@ public class GestorContrasenias {
 	}
 
 	public boolean registrarUsuario(String idUsuario, String contraseniaTexto) {
-
 		if (buscarUsuarioId(idUsuario) != null) {
 			System.out.println("El usuario ya existe.");
 			return false;
 		}
-
-		// Crear nueva instancia de Usuario y agregarla a la lista
-		Usuario nuevoUsuario = new Usuario(idUsuario, new Contrasenia(contraseniaTexto));
-		usuarios.add(nuevoUsuario);
-
-		// Persistir los datos
-		guardarUsuarios();
-		System.out.println("Usuario registrado exitosamente.");
-
-		return true;
+		try {
+			Usuario nuevoUsuario = new Usuario(idUsuario, "Usuario", contraseniaTexto);
+			usuarios.add(nuevoUsuario);
+			guardarUsuarios();
+			System.out.println("Usuario registrado exitosamente.");
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error al registrar nuevo usuario");
+			return false;
+		}
 	}
 
 	public void guardarUsuarios() {

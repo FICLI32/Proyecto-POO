@@ -1,5 +1,5 @@
 import Data.GestionArchivos;
-import Modelo.GestorContrasenias;
+import Controlador.GestorContrasenias;
 import Modelo.Usuario;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

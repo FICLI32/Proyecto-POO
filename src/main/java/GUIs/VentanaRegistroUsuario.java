@@ -1,54 +1,79 @@
 package GUIs;
 
-import Modelo.GestorContrasenias;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class VentanaRegistroUsuario extends JFrame {
-    private JTextField usuarioField;
-    private JPasswordField contraseniaField;
-    private JButton registrarButton;
-    private GestorContrasenias gestor;
+public class VentanaRegistroUsuario {
 
-    public VentanaRegistroUsuario(GestorContrasenias gestor) {
-        this.gestor = gestor;
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> crearVentana());
+    }
 
-        setTitle("Registro de Usuario");
-        setSize(300, 200);
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setLayout(new GridLayout(3, 2));
+    public static void crearVentana() {
+        // Crear el marco principal
+        JFrame frame = new JFrame("Geco Security - Registro");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 400);
+        frame.setLocationRelativeTo(null);
 
-        add(new JLabel("Usuario:"));
-        usuarioField = new JTextField();
-        add(usuarioField);
+        // Crear panel principal
+        JPanel panel = new JPanel();
+        panel.setLayout(null);
+        panel.setBackground(new Color(210, 250, 210)); // Fondo verde claro
+        frame.add(panel);
 
-        add(new JLabel("Contraseña:"));
-        contraseniaField = new JPasswordField();
-        add(contraseniaField);
+        // Logo e imagen
+        JLabel logoLabel = new JLabel("Geco Security");
+        logoLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        logoLabel.setBounds(40, 50, 200, 30);
+        panel.add(logoLabel);
 
-        registrarButton = new JButton("Registrar");
-        add(registrarButton);
+        JLabel geckoImage = new JLabel(new ImageIcon("ruta_de_tu_imagen.png")); // Ruta de la imagen del gecko
+        geckoImage.setBounds(50, 90, 150, 150);
+        panel.add(geckoImage);
 
-        registrarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String idUsuario = usuarioField.getText();
-                String contrasenia = new String(contraseniaField.getPassword());
-                if (idUsuario.isEmpty() || contrasenia.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios.");
-                    return;
-                }
+        // Crear etiquetas y campos de texto
+        JLabel correoLabel = new JLabel("Correo Electrónico");
+        correoLabel.setBounds(250, 30, 200, 20);
+        panel.add(correoLabel);
 
-                if (gestor.registrarUsuario(idUsuario, contrasenia)) {
-                    JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente.");
-                    dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null, "El usuario ya existe. Intente con otro nombre.");
-                }
-            }
-        });
+        JTextField correoField = new JTextField();
+        correoField.setBounds(250, 50, 300, 30);
+        panel.add(correoField);
+
+        JLabel nombreLabel = new JLabel("Nombre Completo");
+        nombreLabel.setBounds(250, 90, 200, 20);
+        panel.add(nombreLabel);
+
+        JTextField nombreField = new JTextField();
+        nombreField.setBounds(250, 110, 300, 30);
+        panel.add(nombreField);
+
+        JLabel usuarioLabel = new JLabel("Nombre de Usuario");
+        usuarioLabel.setBounds(250, 150, 200, 20);
+        panel.add(usuarioLabel);
+
+        JTextField usuarioField = new JTextField();
+        usuarioField.setBounds(250, 170, 300, 30);
+        panel.add(usuarioField);
+
+        JLabel contrasenaLabel = new JLabel("Contraseña");
+        contrasenaLabel.setBounds(250, 210, 200, 20);
+        panel.add(contrasenaLabel);
+
+        JPasswordField contrasenaField = new JPasswordField();
+        contrasenaField.setBounds(250, 230, 300, 30);
+        panel.add(contrasenaField);
+
+        // Botón de registro
+        JButton registrarButton = new JButton("Registrarte");
+        registrarButton.setBounds(350, 280, 120, 30);
+        registrarButton.setBackground(new Color(50, 150, 255)); // Azul
+        registrarButton.setForeground(Color.WHITE);
+        panel.add(registrarButton);
+
+        // Hacer visible la ventana
+        frame.setVisible(true);
     }
 }
+
