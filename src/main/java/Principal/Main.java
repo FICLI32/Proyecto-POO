@@ -1,19 +1,33 @@
 package Principal;
 
-import GUIs.VentanaCrearContrasenia;
-import GUIs.VentanaInicioSesion;
-import GUIs.VentanaListaContrasenias;
+import GUIs.VentanaClaveMaestra;
+
+import javax.swing.*;
+import java.io.File;
 
 public class Main {
     public static void main(String[] args) {
-        /*
-        VentanaListaContrasenias ventanaListaContrasenias = new VentanaListaContrasenias();
-        ventanaListaContrasenias.setVisible(true);
-         */
+        try {
+            String rutaArchivo = "usuarios.json";
+            File archivoUsuarios = new File(rutaArchivo);
 
-        /*
-        VentanaCrearContrasenia ventanaCrearContrasenia = new VentanaCrearContrasenia();
-        ventanaCrearContrasenia.setVisible(true);
-         */
+            SwingUtilities.invokeLater(() -> {
+                new VentanaClaveMaestra(archivoUsuarios).setVisible(true);
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(
+                    null,
+                    "Error al inicializar el sistema: " + e.getMessage(),
+                    "Error Crítico",
+                    JOptionPane.ERROR_MESSAGE
+            );
+        }
     }
 }
+
+
+
+
+

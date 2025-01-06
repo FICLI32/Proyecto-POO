@@ -1,55 +1,96 @@
 package Data;
 
 import Modelo.Usuario;
+import Utils.Cifrador;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
-import java.io.BufferedReader;
+
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.util.Base64;
+import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GestionArchivos {
-	private String rutaArchivo;
-	private SecretKeySpec claveCifrado;
+	private final String rutaArchivo = "usuarios.json";
+	private final Cifrador cifrador;
 
-	public GestionArchivos(String rutaArchivo, SecretKeySpec claveCifrado) {
-		this.rutaArchivo = rutaArchivo;
-		this.claveCifrado = claveCifrado;
+	public GestionArchivos(Cifrador cifrador) {
+		this.cifrador = cifrador;
+		crearArchivoSiNoExiste(); // Crear archivo si no existe
 	}
 
-	public void writeData(List<Usuario> usuarios) {
-		try (FileWriter writer = new FileWriter(rutaArchivo)) {
-			Gson gson = new Gson();
-			String jsonData = gson.toJson(usuarios);
-			//cifrado
-			Cipher cipher = Cipher.getInstance("AES");
-			cipher.init(Cipher.ENCRYPT_MODE, claveCifrado);
-			byte[] encyptedData = cipher.doFinal(jsonData.getBytes());
-			writer.write(Base64.getEncoder().encodeToString(encyptedData));
-		} catch (Exception e) {
-			e.printStackTrace();
+	private void crearArchivoSiNoExiste() {
+		try {
+			File archivo = new File(rutaArchivo);
+			if (!archivo.exists()) {
+				archivo.createNewFile();
+				writeData(new ArrayList<>()); // Escribir una lista vacía
+				System.out.println("Archivo JSON creado: " + rutaArchivo);
+			}
+		} catch (IOException e) {
+			System.err.println("Error al crear el archivo JSON: " + e.getMessage());
 		}
 	}
 
+	// Método para leer datos
 	public List<Usuario> readData() {
-		try (BufferedReader reader = new BufferedReader(new FileReader(rutaArchivo))) {
+		try {
+			FileReader reader = new FileReader(rutaArchivo);
+			char[] buffer = new char[4096];
+			int read = reader.read(buffer);
+			String cifrado = new String(buffer, 0, read);
+			String descifrado = cifrador.descifrar(cifrado);
 
-			String datosCodificados = reader.readLine();
-			byte[] datosDecodificados = Base64.getDecoder().decode(datosCodificados);
-			//Descifrado
-			Cipher cipher = Cipher.getInstance("AES");
-			cipher.init(Cipher.DECRYPT_MODE, claveCifrado);
-			byte[] datosDescifrados = cipher.doFinal(datosDecodificados);
 			Gson gson = new Gson();
-			return gson.fromJson(new String(datosDescifrados), new TypeToken<List<Usuario>>() {
-			}.getType());
-
+			Type tipoLista = new TypeToken<List<Usuario>>() {
+			}.getType();
+			return gson.fromJson(descifrado, tipoLista);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
+			return new ArrayList<>();
 		}
 	}
+
+	// Método para escribir datos
+	public void writeData(List<Usuario> usuarios) {
+		try {
+			Gson gson = new Gson();
+			String json = gson.toJson(usuarios);
+
+			String cifrado = cifrador.cifrar(json);
+
+			FileWriter writer = new FileWriter(rutaArchivo);
+			writer.write(cifrado);
+			writer.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public boolean validarClave(Cifrador cifrador) {
+		try {
+			// Leer datos del archivo (si existe algo cifrado, intenta descifrarlo).
+			File archivo = new File(rutaArchivo);
+			if (!archivo.exists() || archivo.length() == 0) {
+				return true; // Si no hay archivo o está vacío, la clave no es relevante aún.
+			}
+
+			FileReader reader = new FileReader(rutaArchivo);
+			char[] buffer = new char[4096];
+			int read = reader.read(buffer);
+			String cifrado = new String(buffer, 0, read);
+			cifrador.descifrar(cifrado); // Intentar descifrar
+			return true;
+		} catch (Exception e) {
+			return false; // La clave no puede descifrar los datos
+		}
+	}
+
 }
+
+
+
+

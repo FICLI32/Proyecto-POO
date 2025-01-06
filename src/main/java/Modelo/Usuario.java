@@ -1,8 +1,7 @@
 package Modelo;
 
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
-import java.security.SecureRandom;
+import Utils.Cifrador;
+
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,11 +13,11 @@ public class Usuario {
 	private byte[] salt;
 	private Map<String, Contrasenia> contrasenias;
 
-	public Usuario(String userId, String nombre, String contraseniaMaestra) throws Exception {
-		this.idUsuario = userId;
+	public Usuario(String idUsuario, String nombre, String contraseniaMaestra, Cifrador cifrador) throws Exception {
+		this.idUsuario = idUsuario;
 		this.nombre = nombre;
 		this.salt = generarSalt();
-		this.contraseniaMaestraHash = hashContraseniaMaestra(contraseniaMaestra);
+		this.contraseniaMaestraHash = cifrador.cifrar(contraseniaMaestra);
 		this.contrasenias = new HashMap<>();
 	}
 
@@ -35,40 +34,27 @@ public class Usuario {
 	}
 
 	private byte[] generarSalt() {
-		SecureRandom random = new SecureRandom();
 		byte[] salt = new byte[16];
-		random.nextBytes(salt);
+		new java.security.SecureRandom().nextBytes(salt);
 		return salt;
 	}
 
-	private String hashContraseniaMaestra(String contraseniaMaestra) throws Exception {
-		PBEKeySpec spec = new PBEKeySpec(contraseniaMaestra.toCharArray(), salt,65536,128);
-		SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-		byte [] hash = factory.generateSecret(spec).getEncoded();
-		return Base64.getEncoder().encodeToString(hash);
+	public boolean verificarContraseniaMaestra(String contraseniaMaestra, Cifrador cifrador) throws Exception {
+		String intentoHash = cifrador.cifrar(contraseniaMaestra);
+		return intentoHash.equals(contraseniaMaestraHash);
 	}
 
-	public boolean verificarContraseniaMaestra(String contraseniaMaestra) throws Exception{
-		String intento = hashContraseniaMaestra(contraseniaMaestra);
-		return intento.equals(contraseniaMaestraHash);
+	public void agregarContrasenia(String plataforma, Contrasenia contrasenia, Cifrador cifrador) throws Exception {
+		contrasenia.cifrarContrasenia(cifrador);
+		contrasenias.put(plataforma, contrasenia);
 	}
 
-	public void agregarContrasenia(String plataforma, Contrasenia contrasenia, String contraseniaMaestra) throws Exception{
-		contrasenia.cifrarContrasenia(contraseniaMaestra);
-		contrasenias.put(plataforma,contrasenia);
-	}
-
-	public void eliminarContrasenia(String plataforma){
+	public void eliminarContrasenia(String plataforma) {
 		contrasenias.remove(plataforma);
 	}
 
-	public String obtenerContrasenia(String plataforma, String contraseniaMaestra) throws Exception {
+	public String obtenerContrasenia(String plataforma, Cifrador cifrador) throws Exception {
 		Contrasenia contrasenia = contrasenias.get(plataforma);
-		return (contrasenia != null) ? contrasenia.descifrarContrasenia(contraseniaMaestra) : null;
+		return (contrasenia != null) ? contrasenia.descifrarContrasenia(cifrador) : null;
 	}
-
-	public Map<String, Contrasenia> contraseniaMap() {
-		return contrasenias;
-	}
-
 }

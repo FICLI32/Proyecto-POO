@@ -2,6 +2,7 @@ package Controlador;
 
 import Data.GestionArchivos;
 import Modelo.Usuario;
+import Utils.Cifrador;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +12,14 @@ public class GestorContrasenias {
 	private Usuario usuarioIniciado;
 	private List<Usuario> usuarios;
 	private GestionArchivos gestorArchivos;
+	private Cifrador cifrador;
 
-	public GestorContrasenias(GestionArchivos gestorArchivos) {
+	public GestorContrasenias(GestionArchivos gestorArchivos, Cifrador cifrador) {
 		this.usuarios = new ArrayList<>();
 		this.intentosFallidos = 0;
 		this.gestorArchivos = gestorArchivos;
+		this.cifrador = cifrador;
+		cargarUsuarios();
 	}
 
 	public Usuario getUsuarioIniciado() {
@@ -26,22 +30,31 @@ public class GestorContrasenias {
 		return usuarios;
 	}
 
+	public void setUsuarioIniciado(String idUsuario) {
+		this.usuarioIniciado = buscarUsuarioId(idUsuario);
+	}
+
 	public void agregarUsuario(Usuario usuario) {
 		usuarios.add(usuario);
 	}
 
-	public boolean loguearse(String idUsuario, String contraseniaMaestra) throws Exception {
+	public boolean loguearse(String idUsuario, String contraseniaMaestra) {
 		Usuario usuario = buscarUsuarioId(idUsuario);
-		if (usuario != null && usuario.verificarContraseniaMaestra(contraseniaMaestra)) {
-			this.usuarioIniciado = usuario;
-			this.intentosFallidos = 0;
-			return true;
-		} else {
-			intentosFallidos++;
-			if (intentosFallidos >= 3) {
-				System.out.println("Demasiados intentos fallidos. Intente nuevamente más tarde.");
-				// sistema de bloqueo temporal
+		try {
+			if (usuario != null && usuario.verificarContraseniaMaestra(contraseniaMaestra, cifrador)) {
+				this.usuarioIniciado = usuario;
+				this.intentosFallidos = 0;
+				return true;
+			} else {
+				intentosFallidos++;
+				if (intentosFallidos >= 3) {
+					System.out.println("Demasiados intentos fallidos. Intente nuevamente más tarde.");
+				}
+				return false;
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error al verificar las credenciales.");
 			return false;
 		}
 	}
@@ -65,26 +78,37 @@ public class GestorContrasenias {
 			return false;
 		}
 		try {
-			Usuario nuevoUsuario = new Usuario(idUsuario, "Usuario", contraseniaTexto);
+			Usuario nuevoUsuario = new Usuario(idUsuario, "Usuario", contraseniaTexto, cifrador);
 			usuarios.add(nuevoUsuario);
 			guardarUsuarios();
 			System.out.println("Usuario registrado exitosamente.");
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Error al registrar nuevo usuario");
+			System.out.println("Error al registrar nuevo usuario.");
 			return false;
 		}
 	}
 
 	public void guardarUsuarios() {
-		gestorArchivos.writeData(usuarios);
+		try {
+			gestorArchivos.writeData(usuarios);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error al guardar los usuarios en el archivo.");
+		}
 	}
 
 	public void cargarUsuarios() {
-		List<Usuario> usuariosCargados = gestorArchivos.readData();
-		if (usuariosCargados != null) {
-			this.usuarios = usuariosCargados;
+		try {
+			List<Usuario> usuariosCargados = gestorArchivos.readData();
+			if (usuariosCargados != null) {
+				this.usuarios = usuariosCargados;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error al cargar los usuarios desde el archivo.");
 		}
 	}
 }
+
