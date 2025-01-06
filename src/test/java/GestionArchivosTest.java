@@ -1,7 +1,9 @@
+import Data.GestionArchivos;
+import Modelo.Usuario;
+import Utils.Cifrador;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.crypto.spec.SecretKeySpec;
 import java.io.File;
 import java.util.List;
 
@@ -10,31 +12,35 @@ import static org.junit.jupiter.api.Assertions.*;
 class GestionArchivosTest {
 
     private GestionArchivos gestionArchivos;
-    private SecretKeySpec claveCifrado;
+    private Cifrador cifrador;
     private File archivo;
 
     @BeforeEach
-    void setUp() throws Exception{
-        archivo = File.createTempFile("test",".json");
-        claveCifrado = new SecretKeySpec("1234567890123456".getBytes(),"AES");
-        gestionArchivos = new GestionArchivos(archivo.getAbsolutePath(), claveCifrado);
+    void setUp() {
+        cifrador = new Cifrador("claveSegura123");
+        gestionArchivos = new GestionArchivos(cifrador);
+        archivo = new File("usuarios.json");
     }
 
     @Test
-    void testWriteYReadData() throws Exception {
-        Usuario usuario1 = new Usuario("001", "Juan", "ContraseniaMaestra123");
-        Usuario usuario2 = new Usuario("002", "Ana", "ContraseniaMaestra1234");
-        List<Usuario> usuarios = List.of(usuario1, usuario2);
+    void testEscribirYLeerDatos() throws Exception {
+        Usuario usuario = new Usuario("usuario1", "Usuario prueba", "password123", cifrador);
+        List<Usuario> usuarios = List.of(usuario);
 
         gestionArchivos.writeData(usuarios);
+        assertTrue(archivo.exists());
 
-        List<Usuario> usuariosCargados = gestionArchivos.readData();
-
-        assertNotNull(usuariosCargados);
-        assertEquals(2, usuariosCargados.size());
-        assertEquals("Juan", usuariosCargados.get(0).getNombre());
-        assertEquals("Ana", usuariosCargados.get(1).getNombre());
+        List<Usuario> usuariosLeidos = gestionArchivos.readData();
+        assertEquals(1, usuariosLeidos.size());
+        assertEquals("usuario1", usuariosLeidos.get(0).getIdUsuario());
     }
 
-
+    @Test
+    void testValidarClave() throws Exception {
+        Usuario usuario = new Usuario("usuario1", "Uusuario prueba", "password123", cifrador);
+        gestionArchivos.writeData(List.of(usuario));
+        assertTrue(gestionArchivos.validarClave(cifrador));
+        Cifrador cifradorInvalido = new Cifrador("claveIncorrecta");
+        assertFalse(gestionArchivos.validarClave(cifradorInvalido));
+    }
 }

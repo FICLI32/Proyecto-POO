@@ -4,7 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="683c57a6-af16-4ddd-95fb-0b14bdd6ae28" name="Changes" comment="." />
+    <list default="true" id="683c57a6-af16-4ddd-95fb-0b14bdd6ae28" name="Changes" comment="subo codigo finalizado">
+      <change afterPath="$PROJECT_DIR$/src/test/java/Utils/CifradorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Controlador/GestorContrasenias.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Controlador/GestorContrasenias.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Data/GestionArchivos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Data/GestionArchivos.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUIs/VentanaClaveMaestra.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUIs/VentanaClaveMaestra.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/GUIs/VentanaCrearContrasenia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/GUIs/VentanaCrearContrasenia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Modelo/Contrasenia.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Modelo/Contrasenia.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Modelo/Usuario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Modelo/Usuario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Utils/Cifrador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Utils/Cifrador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/ContraseniaTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/ContraseniaTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/GestionArchivosTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/GestionArchivosTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/GestorContraseniasTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/GestorContraseniasTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/UsuarioTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/UsuarioTest.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,7 +36,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="FIDEL" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -50,11 +65,24 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.GestorContrasenias.executor": "Run",
+    "Application.Main.executor": "Run",
+    "Application.VentanaCrearContrasenia.executor": "Run",
+    "Application.VentanaInicioSesion.executor": "Run",
+    "Application.VentanaListaContrasenias.executor": "Run",
+    "Application.VentanaRegistroUsuario.executor": "Run",
+    "JUnit.CifradorTest.executor": "Run",
+    "JUnit.ContraseniaTest.executor": "Run",
+    "JUnit.ContraseniaTest.testCifradoDirecto.executor": "Run",
+    "JUnit.ContraseniaTest.testCifrarYDescifrarContrasenia.executor": "Run",
+    "JUnit.GestionArchivosTest.executor": "Run",
     "JUnit.GestorContraseniasTest.executor": "Run",
+    "JUnit.GestorContraseniasTest.testGuardarYcargarUsuarios.executor": "Run",
+    "JUnit.UsuarioTest.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
     "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "FIDEL",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/home/fidelb/IdeaProjects/Proyecto-GestorCotrasenias_POO",
     "project.structure.last.edited": "Modules",
@@ -67,13 +95,32 @@
       <recent name="" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
+      <recent name="Utils" />
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.UsuarioTest">
     <configuration name="GestorContrasenias" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="GestorContrasenias" />
       <module name="Proyecto-POO-gestorcontrasenias" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ContraseniaTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Proyecto-POO-gestorcontrasenias" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="ContraseniaTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="GestionArchivosTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Proyecto-POO-gestorcontrasenias" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="GestionArchivosTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -87,9 +134,32 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="GestorContraseniasTest.testGuardarYcargarUsuarios" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Proyecto-POO-gestorcontrasenias" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="GestorContraseniasTest" />
+      <option name="METHOD_NAME" value="testGuardarYcargarUsuarios" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UsuarioTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Proyecto-POO-gestorcontrasenias" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="UsuarioTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.UsuarioTest" />
         <item itemvalue="JUnit.GestorContraseniasTest" />
+        <item itemvalue="JUnit.GestionArchivosTest" />
+        <item itemvalue="JUnit.ContraseniaTest" />
+        <item itemvalue="JUnit.GestorContraseniasTest.testGuardarYcargarUsuarios" />
       </list>
     </recent_temporary>
   </component>
@@ -222,8 +292,35 @@
       <option name="project" value="LOCAL" />
       <updated>1730481150628</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="avances ventanas GUIs">
+      <option name="closed" value="true" />
+      <created>1736118297802</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1736118297802</updated>
+    </task>
+    <task id="LOCAL-00017" summary="subo codigo finalizado">
+      <option name="closed" value="true" />
+      <created>1736177837748</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1736177837748</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Subo readme" />
@@ -240,6 +337,20 @@
     <MESSAGE value="subo modificaciones clases y pom" />
     <MESSAGE value="subo avance codigo clases" />
     <MESSAGE value="." />
-    <option name="LAST_COMMIT_MESSAGE" value="." />
+    <MESSAGE value="avances" />
+    <MESSAGE value="avances ventanas GUIs" />
+    <MESSAGE value="subo codigo finalizado" />
+    <option name="LAST_COMMIT_MESSAGE" value="subo codigo finalizado" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/UsuarioTest.java</url>
+          <line>9</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

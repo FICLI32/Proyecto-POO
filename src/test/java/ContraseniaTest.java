@@ -1,37 +1,39 @@
-import org.junit.jupiter.api.BeforeAll;
+import Modelo.Contrasenia;
+import Utils.Cifrador;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ContraseniaTest {
 
-    private  Contrasenia contrasenia;
+    private Contrasenia contrasenia;
+    private Cifrador cifrador;
 
     @BeforeEach
-    void setUp(){
-        contrasenia = new Contrasenia("claveSegura123");
+    void setUp() {
+        contrasenia = new Contrasenia("clavesegura123");
+        cifrador = new Cifrador("clavemaestra123");
     }
+
 
     @Test
-    void testCifrarYDescifrarContrasenia() throws Exception {
-        String contraseniaMaestra = "contraseniaMaestra1";
+    void testCifradoYDescifrado() throws Exception {
+        String textoOriginal = "clavesegura123";
+        String textoCifrado = cifrador.cifrar(textoOriginal);
+        String textoDescifrado = cifrador.descifrar(textoCifrado);
 
-        contrasenia.cifrarContrasenia(contraseniaMaestra);
-
-        assertNotEquals("claveSegura123", contrasenia);
-
-        String contraseniaDescifrada = contrasenia.descifrarContrasenia(contraseniaMaestra);
-
-        assertEquals("claveSegura123", contraseniaDescifrada);
+        System.out.println("Texto origina: " + textoOriginal);
+        System.out.println("Texto cifrado: " + textoCifrado);
+        System.out.println("Texto descifrado: " + textoDescifrado);
+        assertNotEquals(textoOriginal, textoCifrado, "El texto cifrado no deberia ser igual al texto original.");
+        assertEquals(textoOriginal, textoDescifrado, "El texto descifrado deberia ser igual al texto original.");
     }
+
 
     @Test
     void generarContraseniaSegura() {
         String contraseniaGenerada = Contrasenia.generarContraseniaSegura();
-
         assertTrue(contraseniaGenerada.length() >= 16);
     }
 }

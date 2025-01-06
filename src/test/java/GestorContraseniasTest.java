@@ -1,65 +1,73 @@
+import Controlador.GestorContrasenias;
+import Data.GestionArchivos;
+import Modelo.Usuario;
+import Utils.Cifrador;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import javax.crypto.spec.SecretKeySpec;
-import java.io.File;
+
+import java.util.List;
+
+import static org.mockito.Mockito.verify;
+import static org.mockito.ArgumentMatchers.any;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class GestorContraseniasTest {
 
+    private GestionArchivos gestionArchivosMock;
+    private Cifrador cifrador;
     private GestorContrasenias gestorContrasenias;
-    private GestionArchivos gestionArchivos;
-    private SecretKeySpec claveCifrado;
-    private File archivo;
-
 
     @BeforeEach
-    void setUp() throws Exception{
-        archivo = File.createTempFile("test",".json");
-        claveCifrado = new SecretKeySpec("1234567890123456".getBytes(),"AES");
-        gestionArchivos = new GestionArchivos(archivo.getAbsolutePath(), claveCifrado);
-        gestorContrasenias = new GestorContrasenias(gestionArchivos);
+    void setUp() {
+        gestionArchivosMock = mock(GestionArchivos.class);
+        cifrador = new Cifrador("claveSegura123");
+        gestorContrasenias = new GestorContrasenias(gestionArchivosMock, cifrador);
+
     }
 
     @Test
-    void testAgregarUsuarioYAutenticacion() throws Exception {
-        Usuario usuario = new Usuario("001", "Juan", "ContraseniaMaestra123");
-        gestorContrasenias.agregarUsuario(usuario);
+    void testRegistrarUsuario() {
 
-        assertNotNull(gestorContrasenias.buscarUsuarioId("001"));
-        assertEquals("Juan", gestorContrasenias.buscarUsuarioId("001").getNombre());
+        assertTrue(gestorContrasenias.registrarUsuario("usuario1", "password123"));
+        assertFalse(gestorContrasenias.registrarUsuario("usuario1", "otraPassword"));
     }
 
     @Test
-    void testLoguearse() throws Exception{
-        Usuario usuario = new Usuario("001", "Juan", "ContraseniaMaestra123");
-        gestorContrasenias.agregarUsuario(usuario);
+    void testLoguearse() throws Exception {
 
-        //ingreso incorrecto
-        assertFalse(gestorContrasenias.loguearse("001","contraseniaMaestraMala"));
-        assertNull(gestorContrasenias.getUsuarioIniciado());
+        Cifrador cifradorMock = mock(Cifrador.class);
+        GestorContrasenias gestor = new GestorContrasenias(gestionArchivosMock, cifradorMock);
 
-        //correcto ingreso
-        assertTrue(gestorContrasenias.loguearse("001","ContraseniaMaestra123"));
-        assertEquals(usuario, gestorContrasenias.getUsuarioIniciado());
+        String contraseniaMaestra = "password123";
+        String contraseniaCifrada = "hashSimulado";
+
+        when(cifradorMock.cifrar(contraseniaMaestra)).thenReturn(contraseniaCifrada);
+        when(cifradorMock.cifrar("claveIncorrecta")).thenReturn("otroHash");
+
+        gestor.registrarUsuario("usuario1", contraseniaMaestra);
+        when(cifradorMock.cifrar(contraseniaMaestra)).thenReturn(contraseniaCifrada);
+        assertTrue(gestor.loguearse("usuario1", contraseniaMaestra),
+                "la contraseña maestra deberia ser valida.");
+        assertFalse(gestor.loguearse("usuario1", "claveIncorrecta"),
+                "una contraseña incorrecta no deberia ser valida.");
+
     }
 
     @Test
-    void testGuardarYCargarUsuarios() throws Exception {
-        Usuario usuario1 = new Usuario("001", "Juan", "ContraseniaMaestra123");
-        Usuario usuario2 = new Usuario("002", "Ana", "ContraseniaMaestra1234");
-        gestorContrasenias.agregarUsuario(usuario1);
-        gestorContrasenias.agregarUsuario(usuario2);
+    void testGuardarYcargarUsuarios() throws Exception {
 
-        //Guardar
+        Usuario usuarioMock = mock(Usuario.class);
+        List<Usuario> usuariosMock = List.of(usuarioMock);
+
+        when(gestionArchivosMock.readData()).thenReturn(usuariosMock);
+        gestorContrasenias.cargarUsuarios();
+
+        verify(gestionArchivosMock, atLeastOnce()).readData();
+        assertEquals(1, gestorContrasenias.getUsuarios().size(),
+                "deberia cargar un usuario desde el archivo.");
+
         gestorContrasenias.guardarUsuarios();
-
-        GestorContrasenias gestorCargado = new GestorContrasenias(gestionArchivos);
-        gestorCargado.cargarUsuarios();
-
-        assertEquals(2, gestorCargado.getUsuarios().size());
-        assertNotNull(gestorCargado.buscarUsuarioId("001"));
-        assertNotNull(gestorCargado.buscarUsuarioId("002"));
-        assertEquals("Juan", gestorCargado.buscarUsuarioId("001").getNombre());
-        assertEquals("Ana", gestorCargado.buscarUsuarioId("002").getNombre());
+        verify(gestionArchivosMock, times(1)).writeData(any());
     }
 }
