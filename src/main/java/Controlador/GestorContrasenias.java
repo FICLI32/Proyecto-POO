@@ -7,12 +7,14 @@ import Utils.Cifrador;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class GestorContrasenias {
 	private int intentosFallidos;
 	private Usuario usuarioIniciado;
 	private List<Usuario> usuarios;
 	private GestionArchivos gestorArchivos;
 	private Cifrador cifrador;
+
 
 	public GestorContrasenias(GestionArchivos gestorArchivos, Cifrador cifrador) {
 		this.usuarios = new ArrayList<>();
@@ -26,16 +28,13 @@ public class GestorContrasenias {
 		return usuarioIniciado;
 	}
 
+
 	public List<Usuario> getUsuarios() {
 		return usuarios;
 	}
 
 	public void setUsuarioIniciado(String idUsuario) {
 		this.usuarioIniciado = buscarUsuarioId(idUsuario);
-	}
-
-	public void agregarUsuario(Usuario usuario) {
-		usuarios.add(usuario);
 	}
 
 	public boolean loguearse(String idUsuario, String contraseniaMaestra) {
@@ -48,19 +47,15 @@ public class GestorContrasenias {
 			} else {
 				intentosFallidos++;
 				if (intentosFallidos >= 3) {
-					System.out.println("Demasiados intentos fallidos. Intente nuevamente más tarde.");
+					System.out.println("Muchos intentos fallidos. Intente nuevamente más tarde");
 				}
 				return false;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Error al verificar las credenciales.");
+			System.out.println("error al verificar las credenciales.");
 			return false;
 		}
-	}
-
-	public void desloguearse() {
-		this.usuarioIniciado = null;
 	}
 
 	public Usuario buscarUsuarioId(String usuarioId) {
@@ -73,8 +68,9 @@ public class GestorContrasenias {
 	}
 
 	public boolean registrarUsuario(String idUsuario, String contraseniaTexto) {
+
 		if (buscarUsuarioId(idUsuario) != null) {
-			System.out.println("El usuario ya existe.");
+			System.out.println("El usuario ya existe");
 			return false;
 		}
 		try {
@@ -88,6 +84,7 @@ public class GestorContrasenias {
 			System.out.println("Error al registrar nuevo usuario.");
 			return false;
 		}
+
 	}
 
 	public void guardarUsuarios() {
@@ -99,6 +96,7 @@ public class GestorContrasenias {
 		}
 	}
 
+
 	public void cargarUsuarios() {
 		try {
 			List<Usuario> usuariosCargados = gestorArchivos.readData();
@@ -107,8 +105,7 @@ public class GestorContrasenias {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Error al cargar los usuarios desde el archivo.");
+			System.out.println("Error al cargar los usuarios.");
 		}
 	}
 }
-

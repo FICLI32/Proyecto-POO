@@ -10,6 +10,7 @@ public class Contrasenia {
 	private Date fechaCreacion;
 	private boolean isEncrypted;
 
+
 	public Contrasenia(String contrasenia) {
 		this.contrasenia = contrasenia;
 		this.fechaCreacion = new Date();
@@ -20,7 +21,6 @@ public class Contrasenia {
 		SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		return formatoFecha.format(fechaCreacion);
 	}
-
 
 	public void cifrarContrasenia(Cifrador cifrador) throws Exception {
 		if (!isEncrypted) {
@@ -37,22 +37,23 @@ public class Contrasenia {
 	}
 
 	public static String generarContraseniaSegura() {
-		String letrasMayusculas = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-		String letrasMinusculas = "abcdefghijklmnopqrstuvwxyz";
+
+		String mayusculas = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		String minusculas = "abcdefghijklmnopqrstuvwxyz";
 		String numeros = "0123456789";
 		String simbolos = "!@#$%^&*()-_=+[]{}|;:,.<>?";
-		String todosLosCaracteres = letrasMayusculas + letrasMinusculas + numeros + simbolos;
-
+		String todosLosCaracteres = mayusculas + minusculas + numeros + simbolos;
 		StringBuilder contrasenia = new StringBuilder();
 		Random random = new Random();
 
 		for (int i = 0; i < 2; i++) {
 			contrasenia.append(simbolos.charAt(random.nextInt(simbolos.length())));
 		}
+
 		for (int i = 0; i < 4; i++) {
 			contrasenia.append(numeros.charAt(random.nextInt(numeros.length())));
 		}
-		contrasenia.append(letrasMayusculas.charAt(random.nextInt(letrasMayusculas.length())));
+		contrasenia.append(mayusculas.charAt(random.nextInt(mayusculas.length())));
 
 		while (contrasenia.length() < 16) {
 			contrasenia.append(todosLosCaracteres.charAt(random.nextInt(todosLosCaracteres.length())));
@@ -70,5 +71,6 @@ public class Contrasenia {
 		}
 
 		return contraseniaFinal.toString();
+
 	}
 }

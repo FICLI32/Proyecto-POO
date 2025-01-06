@@ -25,10 +25,6 @@ public class Usuario {
 		return contrasenias;
 	}
 
-	public String getNombre() {
-		return nombre;
-	}
-
 	public String getIdUsuario() {
 		return idUsuario;
 	}
@@ -57,4 +53,5 @@ public class Usuario {
 		Contrasenia contrasenia = contrasenias.get(plataforma);
 		return (contrasenia != null) ? contrasenia.descifrarContrasenia(cifrador) : null;
 	}
+
 }

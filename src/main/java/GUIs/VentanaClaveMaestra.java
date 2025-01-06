@@ -12,7 +12,6 @@ public class VentanaClaveMaestra extends JFrame {
     private JPasswordField txtClaveMaestra;
     private JButton btnAcceder;
     private JLabel lblMensaje;
-
     private File archivoUsuarios;
 
     public VentanaClaveMaestra(File archivoUsuarios) {
@@ -23,25 +22,26 @@ public class VentanaClaveMaestra extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
-
         inicializarComponentes();
+
     }
 
     private void inicializarComponentes() {
         JPanel panel = new JPanel();
         panel.setLayout(null);
-        panel.setBackground(new Color(210, 250, 210)); // Fondo verde claro
+        panel.setBackground(new Color(210, 250, 210));
         add(panel);
-
+        //
         JLabel lblTitulo = new JLabel("Geco Security");
         lblTitulo.setFont(new Font("Arial", Font.BOLD, 24));
         lblTitulo.setBounds(120, 20, 200, 30);
         panel.add(lblTitulo);
-
+        //
         JLabel lblClaveMaestra = new JLabel("Ingrese la Clave Maestra:");
         lblClaveMaestra.setFont(new Font("Arial", Font.BOLD, 14));
         lblClaveMaestra.setBounds(50, 70, 300, 20);
         panel.add(lblClaveMaestra);
+
 
         txtClaveMaestra = new JPasswordField();
         txtClaveMaestra.setBounds(50, 100, 300, 30);
@@ -60,6 +60,7 @@ public class VentanaClaveMaestra extends JFrame {
         panel.add(lblMensaje);
 
         agregarEventos();
+
     }
 
     private void agregarEventos() {
@@ -74,11 +75,9 @@ public class VentanaClaveMaestra extends JFrame {
             try {
                 Cifrador cifrador = new Cifrador(claveMaestra);
                 GestionArchivos gestionArchivos = new GestionArchivos(cifrador);
-
                 if (archivoUsuarios.exists() && !gestionArchivos.validarClave(cifrador)) {
                     throw new Exception("Clave maestra incorrecta o error al descifrar el archivo.");
                 }
-
                 GestorContrasenias gestorContrasenias = new GestorContrasenias(gestionArchivos, cifrador);
 
                 if (!archivoUsuarios.exists()) {
@@ -89,6 +88,7 @@ public class VentanaClaveMaestra extends JFrame {
                     new VentanaUsuario(gestorContrasenias, cifrador).setVisible(true);
                 }
                 dispose();
+
             } catch (Exception ex) {
                 lblMensaje.setText(ex.getMessage());
                 txtClaveMaestra.setText("");

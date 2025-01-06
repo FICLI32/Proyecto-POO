@@ -14,15 +14,16 @@ public class VentanaCrearContrasenia extends JFrame {
     private JTextField txtPlataforma;
     private JPasswordField txtContrasena;
     private JButton btnGenerar, btnGuardar;
-
+    //
     private JLabel lblRequisitoLongitud;
     private JLabel lblRequisitoMayuscula;
     private JLabel lblRequisitoNumero;
     private JLabel lblRequisitoSimbolo;
-
+    //
     private GestorContrasenias gestorContrasenias;
     private Cifrador cifrador;
     private VentanaListaContrasenias ventanaLista;
+
 
     public VentanaCrearContrasenia(GestorContrasenias gestorContrasenias, Cifrador cifrador, VentanaListaContrasenias ventanaLista) {
         this.gestorContrasenias = gestorContrasenias;
@@ -34,11 +35,12 @@ public class VentanaCrearContrasenia extends JFrame {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
-
         inicializarComponentes();
+
     }
 
     private void inicializarComponentes() {
+
         JPanel panel = new JPanel();
         panel.setLayout(null);
         panel.setBackground(new Color(210, 250, 210));
@@ -62,7 +64,7 @@ public class VentanaCrearContrasenia extends JFrame {
         ((javax.swing.text.AbstractDocument) txtPlataforma.getDocument()).setDocumentFilter(new LimitarCaracteres(20));
         panel.add(txtContrasena);
 
-        // Etiquetas para los requisitos de la contraseña
+        //requisitos
         lblRequisitoLongitud = new JLabel("Debe incluir al menos 10 caracteres.");
         lblRequisitoLongitud.setBounds(50, 170, 300, 20);
         lblRequisitoLongitud.setForeground(Color.RED);
